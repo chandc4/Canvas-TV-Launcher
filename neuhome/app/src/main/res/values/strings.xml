@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Canvas TV Launcher</string>
+    <string name="dock_title">Pinned</string>
+    <string name="all_apps_title">All Apps</string>
+    <string name="settings_title">Launcher Settings</string>
+    <string name="web_upload_title">Add Wallpapers from Phone</string>
+    <string name="web_upload_prompt">Scan the QR code or visit the URL on your phone to upload wallpapers:</string>
+    <string name="close">Close</string>
+</resources>

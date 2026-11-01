@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <!-- Frosted luminous glow when focused -->
+            <solid android:color="#38FFFFFF" />
+            <stroke android:width="2dp" android:color="#FFFFFF" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Translucent smoked glass surface with subtle boundary -->
+            <solid android:color="#241E222B" />
+            <stroke android:width="1dp" android:color="#1AFFFFFF" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+</selector>

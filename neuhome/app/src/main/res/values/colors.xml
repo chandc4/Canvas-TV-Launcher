@@ -1,0 +1,10 @@
+<resources>
+    <color name="bg_dark">#121316</color>
+    <color name="bg_scrim">#80000000</color>
+    <color name="surface_card">#22252A</color>
+    <color name="surface_focused">#FFFFFF</color>
+    <color name="text_primary">#F1F3F5</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="text_focused">#121316</color>
+    <color name="accent_focus">#64B5F6</color>
+</resources>

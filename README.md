@@ -43,7 +43,6 @@ Most TV launchers are built around apps, ads, and recommendations. Canvas TV Lau
 - Original starter wallpapers included
 
 ## Screenshots
-_Add screenshots here after capturing them from a real TV._
 
 | Home Canvas | App Drawer | Settings Hub |
 |---|---|---|

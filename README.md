@@ -47,7 +47,7 @@ _Add screenshots here after capturing them from a real TV._
 
 | Home Canvas | App Drawer | Settings Hub |
 |---|---|---|
-| ![Home](docs/screenshots/home.png) | ![Apps](docs/screenshots/apps.png) | ![Settings](docs/screenshots/settings.png) |
+| ![Home](docs/screenshots/home.jpg) | ![Apps](docs/screenshots/dock.jpg) | ![Settings](docs/screenshots/settings.jpg) |
 
 ## Installation
 ### Option 1: GitHub Release (recommended)

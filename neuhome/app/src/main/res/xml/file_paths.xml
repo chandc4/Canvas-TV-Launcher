@@ -2,4 +2,8 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <files-path name="internal_movies" path="movies/" />
     <files-path name="internal_wallpapers" path="wallpapers/" />
+    <files-path name="internal_apks" path="apks/" />
+    <cache-path name="cache_apks" path="apks/" />
+    <external-files-path name="external_movies" path="." />
+    <external-path name="public_external" path="." />
 </paths>

@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         stopWallpaperRotationTimer()
         // Release keep-awake when leaving Home so media apps manage their own screen on
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        stopServer()
     }
 
     private fun setupAppDock() {
@@ -183,19 +184,18 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Delete Movie")
             .setMessage("Delete video file from TV?\n${file.name}")
             .setPositiveButton("Delete") { _, _ ->
-                file.delete()
-                refreshMoviesShelf()
-                Toast.makeText(this, "Deleted: ${file.name}", Toast.LENGTH_SHORT).show()
+                if (file.exists() && file.delete()) {
+                    MediaStorageHelper.notifyMediaScanner(this, file)
+                    refreshMoviesShelf()
+                    Toast.makeText(this, "Deleted: ${file.name}", Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun refreshMoviesShelf() {
-        val moviesDir = File(filesDir, "movies")
-        val moviesList = moviesDir.listFiles()?.filter { f ->
-            f.isFile && f.extension.lowercase() in listOf("mp4", "mkv", "avi", "mov", "mpg", "mpeg", "webm", "ts")
-        } ?: emptyList()
+        val moviesList = MediaStorageHelper.getAllMovieFiles(this)
 
         movieAdapter.updateMovies(moviesList)
         if (moviesList.isEmpty()) {
@@ -651,12 +651,12 @@ class MainActivity : AppCompatActivity() {
 
         startServer(port)
 
-        showSettingsPage("system")
+        showSettingsPage("transfer")
         binding.keepScreenOnSwitch.isChecked = wallpaperManager.isKeepScreenOnEnabled()
         appManageAdapter.update(allInstalledApps, wallpaperManager.getHiddenPackages())
         syncDockCountLabel()
         binding.settingsOverlay.visibility = View.VISIBLE
-        binding.btnSystemSettings.requestFocus()
+        binding.navTransfer.requestFocus()
     }
 
     private fun showSettingsPage(page: String) {
@@ -680,7 +680,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 wallpaperServer = WallpaperServer(
                     context = this,
-                    port = port,
+                    serverPort = port,
                     onWallpaperUploaded = { uploadedFile ->
                         runOnUiThread {
                             wallpaperManager.setWallpaper(uploadedFile)
@@ -692,13 +692,14 @@ class MainActivity : AppCompatActivity() {
                     onVideoUploaded = { videoFile ->
                         runOnUiThread {
                             refreshMoviesShelf()
-                            Toast.makeText(this, "Video ready to play: ${videoFile.name}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Video ready: ${videoFile.name}", Toast.LENGTH_LONG).show()
                         }
                     },
                     onDeleteFile = { fileName ->
                         runOnUiThread {
                             loadInitialWallpaper()
                             refreshWallpaperGallery()
+                            refreshMoviesShelf()
                             Toast.makeText(this, "Deleted: $fileName", Toast.LENGTH_SHORT).show()
                         }
                     }

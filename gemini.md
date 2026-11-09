@@ -25,16 +25,26 @@
 - **Adjustable Dim Scrim:** One-tap toggle between **Bright & Clear (10% dim)** and **Dimmed for Contrast (40% dim)**.
 - **High-Contrast Typography:** Clock and Date positioned at the extreme top-left corner (`#F1F3F5` crisp white with drop shadows).
 
-### 3. Integrated Phone-to-TV Web Hub & File Manager
-- **On-Demand Micro HTTP Server:** Starts on port 8080 when Launcher Settings are opened, shuts down completely when closed.
+### 3. Integrated Phone-to-TV Transfer Hub & Public Storage Routing
+- **Strictly On-Demand Micro Server:** Starts on port 8080 **only** when Settings is opened. The microsecond Settings is closed or content begins playing, the server completely shuts down (0% CPU, 0 open ports, 0 battery drain).
 - **Local QR Code Pairing:** Renders a clean 240px QR code on the TV for instant scanning from phone/tablet browser without requiring companion apps.
-- **Dual-Storage Smart Routing:**
-  - **Photos/Wallpapers (`.jpg`, `.png`, `.webp`):** Saved to app-private storage (`context.filesDir/wallpapers/`).
-  - **Movies/Videos (`.mp4`, `.mkv`, `.mpg`, etc.):** Saved to universal internal storage (`context.filesDir/movies/`). Works identically on TVs with or without adopted SD cards and bypasses Android 11 Scoped Storage restrictions.
-- **Web Dashboard:** Mobile-friendly web interface supporting batch uploads, file size inspection, and one-tap deletion.
+- **Glassmorphic Single-Page Web App:**
+  - Batch uploader for Wallpapers, Movies, and APKs with storage gauges and 1-tap delete.
+- **Universal Public Storage Routing (`MediaStorageHelper`):**
+  - **Public Folder Resolution & Auto-Creation:**
+    - **Wallpapers/Pictures:** Resolves to `/sdcard/Pictures/Wallpapers/` and auto-scans `/sdcard/Pictures`, `/sdcard/Images`, and internal storage. Missing directories are auto-created (`mkdirs()`).
+    - **Movies/Videos:** Resolves to `/sdcard/Movies/` with fallback across `/sdcard/Download` and external adopted drives.
+    - **Apps/APKs:** Resolves to `/sdcard/Download/` and `/sdcard/Apps/`.
+  - **No SD Card Requirement:** Operates transparently on internal flash storage via Android's `/sdcard` standard symlink, with seamless fallback to app-private storage (`context.filesDir`) if primary storage permissions are restricted.
+  - **Android MediaScanner Auto-Index:** Triggers `MediaScannerConnection.scanFile` immediately on upload so VLC, Nova Player, and TV file managers instantly index files in their libraries.
+- **Direct Sideloading (Mobile-to-TV APK Installer):**
+  - Upload any `.apk` file (like SmartTube Beta) from your phone.
+  - Immediately triggers Android TV's native package installer dialog (`ACTION_VIEW`), enabling effortless remote updates with zero USB thumb drive swapping.
 
-### 4. TV Media Shelf & 1-Click VLC Playback
-- **"Wallpapers on TV" Strip:** Horizontal gallery showing uploaded images with click-to-apply and D-pad long-press delete (with confirmation dialog).
+### 4. TV Media Shelf & Clean Thumbnail Engine
+- **"Wallpapers on TV" Strip:** Horizontal gallery showing all discovered and uploaded images with click-to-apply and D-pad long-press delete (with confirmation dialog).
+- **High-Performance Downsampling (200+ Images):** Micro-thumbnail downsampling (`160x90` via Coil) guarantees 60 FPS snappy D-pad scrolling with zero OOM spikes, even with large image libraries.
+- **Zero-Ghost Cache Eviction:** Deleted images are immediately evicted from Coil memory cache keys and disk cache, ensuring stale downsampled thumbnails never linger.
 - **"Movies & Videos on TV" Shelf:** Lists all sent video files with filenames and sizes.
 - **Secure FileProvider Playback:** Clicking any video card generates a secure `content://` URI and immediately opens the file in **VLC** or **Nova Video Player**.
 

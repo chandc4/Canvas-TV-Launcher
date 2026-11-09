@@ -29,7 +29,7 @@ class WallpaperThumbAdapter(
         val file = wallpapers[position]
         holder.thumb.load(file) {
             crossfade(true)
-            size(240, 180)
+            size(160, 90)
         }
 
         holder.itemView.setOnClickListener {

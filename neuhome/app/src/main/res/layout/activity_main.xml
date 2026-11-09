@@ -172,11 +172,26 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <!-- Top Item: Send Wallpapers & APKs from Phone -->
+                <Button
+                    android:id="@+id/navTransfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_dialog_btn"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="12dp"
+                    android:text="Send Wallpapers &amp; APKs"
+                    android:textColor="@color/accent_focus"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btnSystemSettings"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/bg_dialog_btn"
                     android:focusable="true"
                     android:gravity="start|center_vertical"
@@ -250,18 +265,6 @@
                     android:textColor="@color/text_primary"
                     android:textSize="13sp" />
 
-                <Button
-                    android:id="@+id/navTransfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_dialog_btn"
-                    android:focusable="true"
-                    android:gravity="start|center_vertical"
-                    android:paddingStart="12dp"
-                    android:text="Transfer"
-                    android:textColor="@color/text_primary"
-                    android:textSize="13sp" />
 
                 <Button
                     android:id="@+id/btnSetDefaultLauncher"
@@ -624,7 +627,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Send Wallpapers &amp; Movies from Phone"
+                            android:text="Phone Remote &amp; Media Transfer"
                             android:textColor="@color/accent_focus"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -661,7 +664,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="6dp"
-                                    android:text="Connect phone to the same Wi-Fi. Uploaded images become wallpapers; uploaded videos (.mp4, .mkv) appear in VLC/Nova."
+                                    android:text="Connect phone to same Wi-Fi to send Wallpapers (photos), Movies (.mp4, .mkv), or APKs to install on TV."
                                     android:textColor="@color/text_secondary"
                                     android:textSize="12sp" />
                             </LinearLayout>

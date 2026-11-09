@@ -108,17 +108,7 @@ class WallpaperManager(private val context: Context) {
     }
 
     fun getAllWallpapers(): List<File> {
-        val list = mutableListOf<File>()
-
-        // 1. Files from app storage (uploaded from phone)
-        internalWallpaperDir.listFiles { f -> isImageFile(f) }?.let { list.addAll(it) }
-
-        // 2. Fallback: check device Pictures folder
-        val extPictures = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Wallpapers")
-        if (extPictures.exists() && extPictures.isDirectory) {
-            extPictures.listFiles { f -> isImageFile(f) }?.let { list.addAll(it) }
-        }
-
+        val list = MediaStorageHelper.getAllWallpaperFiles(context)
         return list.distinctBy { it.absolutePath }
     }
 
@@ -163,6 +153,12 @@ class WallpaperManager(private val context: Context) {
 
     fun deleteWallpaper(file: File): Boolean {
         val success = file.delete()
+        if (success) {
+            MediaStorageHelper.notifyMediaScanner(context, file)
+            // Evict from Coil image loader cache so deleted thumbnails do not linger in memory/disk
+            coil.Coil.imageLoader(context).memoryCache?.remove(coil.memory.MemoryCache.Key(file.absolutePath))
+            coil.Coil.imageLoader(context).diskCache?.remove(file.absolutePath)
+        }
         if (file.absolutePath == prefs.getString("current_wallpaper_path", null)) {
             val remaining = getAllWallpapers()
             if (remaining.isNotEmpty()) {
